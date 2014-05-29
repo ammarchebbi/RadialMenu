@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class RadialMenuMain extends Application {
 
-    public static void Main(String... args) {
+    public static void main(String... args) {
         Application.launch(args);
     }
 

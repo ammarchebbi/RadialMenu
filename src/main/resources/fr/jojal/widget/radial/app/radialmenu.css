@@ -1,0 +1,11 @@
+#radialItem {
+    -fx-fill: linear-gradient(royalblue, dodgerblue);
+    -fx-stroke: #120D43;
+    -fx-stroke-width: 2;
+}
+
+#radialItem:pressed {
+    -fx-fill: linear-gradient(dodgerblue, lightskyblue);
+    -fx-stroke: #120D43;
+    -fx-stroke-width: 2;
+}

@@ -20,6 +20,7 @@ public class RadialMenuMain extends Application {
 
         RadialMenu radialMenu = new RadialMenu(60, 120, 360, 5);
 
+
         RadialMenuContainer firstContainer = new RadialMenuContainer();
         RadialMenuContainer secondContainer = new RadialMenuContainer();
         RadialMenuContainer thirdContainer = new RadialMenuContainer();
@@ -61,6 +62,8 @@ public class RadialMenuMain extends Application {
 
         Group group = new Group();
         Scene scene = new Scene(group, 800, 600);
+        scene.getStylesheets().add(getClass().getResource("radialmenu.css").toExternalForm());
+
         radialMenu.setLayoutX(400);
         radialMenu.setLayoutY(300);
 

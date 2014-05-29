@@ -7,7 +7,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -43,9 +42,6 @@ public class RadialItem extends Group {
 		this.path.getElements().add(arcToInner);
 
 		getChildren().add(this.path);
-		
-		path.setFill(Color.ALICEBLUE);
-		path.setStroke(Color.BLACK);	
 	}
 	    
 
@@ -213,6 +209,7 @@ public class RadialItem extends Group {
         	image = new SimpleObjectProperty<ImageView>(this, "image") {
         		@Override
         		protected void invalidated() {
+        			System.out.println("Set Image");
         			if(getChildren().contains(get())) {
         				getChildren().remove(get());
         			}

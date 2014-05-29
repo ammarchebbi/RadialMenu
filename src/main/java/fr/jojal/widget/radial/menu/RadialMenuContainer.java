@@ -1,7 +1,6 @@
 package fr.jojal.widget.radial.menu;
 
 import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -21,21 +20,15 @@ public class RadialMenuContainer extends RadialMenuItem {
 		getPath().addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
 			setChildrenVisible(!isChildrenVisible());
 			event.consume();
-		});
-		
-		items.addListener(new InvalidationListener() {
-			
-			@Override
-			public void invalidated(Observable observable) {
-				update();	
-			}
-		});
+        });
+
+		items.addListener((InvalidationListener) obs -> update());
 	}
 	
 
 	protected void updateChildren() {
 		if(items.size() == 0) return;
-		//TODO Add root menu length to compute the radial item length
+		//TODO Radial separator
 		double radialItemLenght = 360 / items.size();
 		
 		for(int i = 0; i < items.size(); i++) {
@@ -52,7 +45,7 @@ public class RadialMenuContainer extends RadialMenuItem {
             double ratio = parentOuterRadius / newOuterRadius;
             double newArcLenght = parentArcLenght * ratio;
             //double newArcLenght = radialItemLenght;
-            //System.out.println("@@@@: " + newArcLenght);
+
             double startAngle = radialMenuItem.getParentItem().getStartAngle(); //+ ((newArcLenght - parentArcLenght) / 2);
             
             radialMenuItem.setInnerRadius(newInnerRadius);

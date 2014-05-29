@@ -1,4 +1,4 @@
-package fr.jojal.widget.radial;
+package fr.jojal.widget.radial.app;
 
 import fr.jojal.widget.radial.menu.RadialMenu;
 import fr.jojal.widget.radial.menu.RadialMenuContainer;

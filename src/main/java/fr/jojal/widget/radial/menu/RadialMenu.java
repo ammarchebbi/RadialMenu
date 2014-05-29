@@ -1,12 +1,12 @@
 package fr.jojal.widget.radial.menu;
 
 import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
 
 public class RadialMenu extends Group {
 
@@ -24,13 +24,7 @@ public class RadialMenu extends Group {
 		lengthProperty().set(length);
 		gapProperty().set(gap);
 		
-		this.rootItems.addListener(new InvalidationListener() {
-
-            @Override
-            public void invalidated(Observable observable) {
-                updateChildren();
-            }
-        });
+		this.rootItems.addListener((InvalidationListener) obs -> updateChildren());
 		
 		this.rootItems.addAll(items);
 		
@@ -141,6 +135,21 @@ public class RadialMenu extends Group {
     /************************************************************/
     public void addRootItem(RadialMenuItem rootItem) {
     	rootItems.add(rootItem);
+        if(rootItem instanceof RadialMenuContainer)  {
+
+            RadialMenuContainer container = (RadialMenuContainer) rootItem;
+            container.getPath().addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
+                for(RadialMenuItem item : rootItems) {
+                    if(item instanceof RadialMenuContainer) {
+                        RadialMenuContainer otherContainer = (RadialMenuContainer) item;
+                        if(otherContainer != container)
+                            otherContainer.setChildrenVisible(false);
+                    }
+                }
+                e.consume();
+            });
+        }
+
     	getChildren().add(rootItem);
     }
 }

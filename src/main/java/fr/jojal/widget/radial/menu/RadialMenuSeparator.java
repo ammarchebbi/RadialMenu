@@ -1,9 +1,9 @@
 package fr.jojal.widget.radial.menu;
 
 /**
- * User: jordan
- * Date: 01/04/2014
+ * @author Jordan Mens
  */
+
 public class RadialMenuSeparator extends RadialMenuItem {
 
     public RadialMenuSeparator() {

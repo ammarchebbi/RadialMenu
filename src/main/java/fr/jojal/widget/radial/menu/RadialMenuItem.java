@@ -4,6 +4,9 @@ import fr.jojal.widget.radial.item.RadialItem;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
+/**
+ * @author Jordan Mens
+ */
 
 public class RadialMenuItem extends RadialItem {
 

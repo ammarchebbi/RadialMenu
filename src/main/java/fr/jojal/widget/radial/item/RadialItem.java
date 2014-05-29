@@ -12,6 +12,10 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
+/**
+ * @author Jordan Mens
+ */
+
 public class RadialItem extends Group {
 	
 	protected static final int ANGLE_TO_START_AT_ZERO_DEGREE = -90;

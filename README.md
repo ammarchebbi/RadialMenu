@@ -30,6 +30,7 @@ root1.addItem(root1SubItem4);
 <ul>
      <li> Text in items </li>
      <li> Center items on top of their parent </li>
+     <li> Animations </li>
 </ul>
 
 ### Questions ?

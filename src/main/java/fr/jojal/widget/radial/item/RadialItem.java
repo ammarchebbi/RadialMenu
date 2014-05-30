@@ -28,12 +28,14 @@ public class RadialItem extends Group {
 	
 	private ObjectProperty<ImageView> image;
 	
-	protected Path path = new Path();
+	private Path path = new Path();
 	protected MoveTo moveTo = new MoveTo();
 	protected ArcTo arcToInner = new ArcTo();
 	protected ArcTo arcTo = new ArcTo();
 	protected LineTo lineTo = new LineTo();
 	protected LineTo lineTo2 = new LineTo();
+
+
 	
 	public RadialItem() {
 		

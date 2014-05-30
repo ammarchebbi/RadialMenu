@@ -33,4 +33,4 @@ root1.addItem(root1SubItem4);
 </ul>
 
 ### Questions ?
-If you have some questions or recommendation, contact me at jordan.mens@gmail.com
+If you have some questions or recommendations, contact me at jordan.mens@gmail.com

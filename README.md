@@ -29,4 +29,8 @@ root1.addItem(root1SubItem4);
 ### Update to come ?
 <ul>
      <li> Text in items </li>
+     <li> Center items on top of their parent </li>
 </ul>
+
+### Questions ?
+If you have some questions or recommendation, contact me at jordan.mens@gmail.com

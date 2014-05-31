@@ -15,6 +15,7 @@ public class RadialMenuContainer extends RadialMenuItem {
 
 	private ObservableList<RadialMenuItem> items = FXCollections.observableArrayList();
 	private BooleanProperty isChildrenVisible;
+    private BooleanProperty isChildrenCenterOnParent;
 	
 
 	public RadialMenuContainer() {
@@ -51,7 +52,11 @@ public class RadialMenuContainer extends RadialMenuItem {
             //double newArcLenght = radialItemLenght;
 
             double startAngle = radialMenuItem.getParentItem().getStartAngle(); //+ ((newArcLenght - parentArcLenght) / 2);
-            
+            if(isChildrenCenterOnParent()) {
+                startAngle -= radialItemLenght/2;
+            }
+
+
             radialMenuItem.setInnerRadius(newInnerRadius);
 			radialMenuItem.setOuterRadius(newOuterRadius);
 			radialMenuItem.setStartAngle(i * newArcLenght + startAngle);
@@ -98,7 +103,27 @@ public class RadialMenuContainer extends RadialMenuItem {
     
     public final void setChildrenVisible(boolean isChildrenVisible) {
     	this.isChildrenVisibleProperty().set(isChildrenVisible);
-    } 
+    }
+    /************************************************************/
+    public final BooleanProperty isChildrenCenterOnParentProperty() {
+        if (isChildrenCenterOnParent == null) {
+            isChildrenCenterOnParent = new SimpleBooleanProperty(this, "isChildrenCenterOnParent") {
+                @Override
+                protected void invalidated() {
+                    updateChildren();
+                }
+            };
+        }
+        return isChildrenCenterOnParent;
+    }
+
+    public final boolean isChildrenCenterOnParent() {
+        return isChildrenCenterOnParentProperty().get();
+    }
+
+    public final void setChildrenCenterOnParent(boolean childrenCenterOnParent) {
+        this.isChildrenCenterOnParentProperty().set(childrenCenterOnParent);
+    }
 
 //	private int computeLevel(int level) {
 //		

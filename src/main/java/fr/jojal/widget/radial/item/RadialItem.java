@@ -1,9 +1,6 @@
 package fr.jojal.widget.radial.item;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.*;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
@@ -11,6 +8,7 @@ import javafx.scene.shape.ArcTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Text;
 
 /**
  * @author Jordan Mens
@@ -35,6 +33,9 @@ public class RadialItem extends Group {
 	protected LineTo lineTo = new LineTo();
 	protected LineTo lineTo2 = new LineTo();
 
+    private Text textShape = new Text();
+
+    private StringProperty text;
 
 	
 	public RadialItem() {
@@ -48,6 +49,7 @@ public class RadialItem extends Group {
 		this.path.getElements().add(arcToInner);
 
 		getChildren().add(this.path);
+        textShape.setMouseTransparent(true);
 	}
 	    
 
@@ -60,6 +62,8 @@ public class RadialItem extends Group {
 		outerRadiusProperty().set(outerRadius);
 		lengthProperty().set(arcLengthAngle);
 		startAngleProperty().set(startAngle);
+
+        textShape.setMouseTransparent(true);
 	}
 
 
@@ -99,10 +103,23 @@ public class RadialItem extends Group {
 				centerRadius*Math.sin(startAngleInRadians + arcAngleLengthInRadians/2));
 
 		if(this.getImage() != null) {
-			double width = this.getImage().getBoundsInLocal().getWidth();
-			double height =this.getImage().getBoundsInLocal().getHeight();
-			this.getImage().relocate(centerOfPath.getX() - width/2, centerOfPath.getY()-height/2);
+            double width = this.getImage().getBoundsInLocal().getWidth();
+            double height =this.getImage().getBoundsInLocal().getHeight();
+            this.getImage().relocate(centerOfPath.getX() - width/2, centerOfPath.getY()-height/2);
 		}
+
+
+        if(this.getText() != null && !this.getText().isEmpty()) {
+            double width = this.textShape.getBoundsInLocal().getWidth();
+            double height =this.textShape.getBoundsInLocal().getHeight();
+            this.textShape.relocate(centerOfPath.getX() - width / 2, centerOfPath.getY() - height / 2);
+
+            double rotationAngle = getStartAngle() + ((getOuterRadius() - getInnerRadius()) / 2);
+            if(getStartAngle() > 75 && getStartAngle() < 270) {
+                rotationAngle += 180;
+            }
+            this.textShape.setRotate(rotationAngle);
+        }
 	}
 	
 	
@@ -215,7 +232,6 @@ public class RadialItem extends Group {
         	image = new SimpleObjectProperty<ImageView>(this, "image") {
         		@Override
         		protected void invalidated() {
-        			System.out.println("Set Image");
         			if(getChildren().contains(get())) {
         				getChildren().remove(get());
         			}
@@ -234,8 +250,34 @@ public class RadialItem extends Group {
     
     public final void setImage(ImageView image) {
     	this.imageProperty().set(image);
-    } 
-    
+    }
+
+    /************************************************************/
+    public final StringProperty textProperty() {
+        if (text == null) {
+            text = new SimpleStringProperty(this, "text") {
+                @Override
+                protected void invalidated() {
+                    if(!getChildren().contains(textShape)) {
+                        getChildren().add(textShape);
+                    }
+                    textShape.setText(get());
+                    update();
+                }
+            };
+        }
+        return text;
+    }
+
+    public final String getText() {
+        return textProperty().get();
+    }
+
+    public final void setText(String text) {
+        this.textProperty().set(text);
+    }
+
+    /************************************************************/
     public Path getPath() {
 		return path;
 	}

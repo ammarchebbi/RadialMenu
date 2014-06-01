@@ -143,11 +143,14 @@ public class RadialMenu extends Group {
 
             RadialMenuContainer container = (RadialMenuContainer) rootItem;
             container.getPath().addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {
+
                 for(RadialMenuItem item : rootItems) {
+
                     if(item instanceof RadialMenuContainer) {
                         RadialMenuContainer otherContainer = (RadialMenuContainer) item;
-                        if(otherContainer != container)
+                        if(otherContainer != container) {
                             otherContainer.setChildrenVisible(false);
+                        }
                     }
                 }
                 e.consume();

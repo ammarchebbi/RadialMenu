@@ -9,3 +9,10 @@
     -fx-stroke: #120D43;
     -fx-stroke-width: 2;
 }
+
+
+#radialItem:selected {
+    -fx-fill: linear-gradient(dodgerblue, lightskyblue);
+    -fx-stroke: red;
+    -fx-stroke-width: 2;
+}

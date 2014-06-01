@@ -5,6 +5,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.PseudoClass;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -16,10 +17,11 @@ public class RadialMenuContainer extends RadialMenuItem {
 	private ObservableList<RadialMenuItem> items = FXCollections.observableArrayList();
 	private BooleanProperty isChildrenVisible;
     private BooleanProperty isChildrenCenterOnParent;
+    private BooleanProperty isSeparatorEnable;
 	
 
 	public RadialMenuContainer() {
-		
+
 		setChildrenVisible(false);
 		
 		getPath().addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
@@ -53,7 +55,8 @@ public class RadialMenuContainer extends RadialMenuItem {
 
             double startAngle = radialMenuItem.getParentItem().getStartAngle(); //+ ((newArcLenght - parentArcLenght) / 2);
             if(isChildrenCenterOnParent()) {
-                startAngle -= radialItemLenght/2;
+                //TODO Check the calculation to center items on their parent
+                startAngle -= (items.size() * newArcLenght) / 2 - (newArcLenght/2);
             }
 
 
@@ -90,6 +93,8 @@ public class RadialMenuContainer extends RadialMenuItem {
         		protected void invalidated() {
         			for(RadialMenuItem item : items) {
         				item.setVisible(get());
+                        PseudoClass selectedClass = PseudoClass.getPseudoClass("selected");
+                        getPath().pseudoClassStateChanged(selectedClass, isChildrenVisible());
         			}
         		}
         	};
@@ -123,6 +128,26 @@ public class RadialMenuContainer extends RadialMenuItem {
 
     public final void setChildrenCenterOnParent(boolean childrenCenterOnParent) {
         this.isChildrenCenterOnParentProperty().set(childrenCenterOnParent);
+    }
+    /************************************************************/
+    public final BooleanProperty isSeparatorEnableProperty() {
+        if (isSeparatorEnable == null) {
+            isSeparatorEnable = new SimpleBooleanProperty(this, "isSeparatorEnable") {
+                @Override
+                protected void invalidated() {
+                    updateChildren();
+                }
+            };
+        }
+        return isSeparatorEnable;
+    }
+
+    public final boolean isSeparatorEnable() {
+        return isSeparatorEnableProperty().get();
+    }
+
+    public final void setSeparatorEnable(boolean separatorEnable) {
+        this.isSeparatorEnableProperty().set(separatorEnable);
     }
 
 //	private int computeLevel(int level) {
